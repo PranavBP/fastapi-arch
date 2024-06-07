@@ -1,6 +1,9 @@
 from sqlalchemy.orm import Session
 
+# Pydantic
 from schemas import CarCreate, CarUpdate
+
+# SQLalchemy ORM models
 from models import Car
 
 
@@ -16,12 +19,13 @@ class CarCrud:
 
     @staticmethod
     def get_cars(db: Session):
-        # , skip: int, limit: int
+        # Can add -> skip: int, limit: int
         # return db.query(Car).offset(skip).limit(limit).all()
         return db.query(Car).all()
 
     @staticmethod
     def create_car(db:Session, car: CarCreate):
+        # ** is used to unpack the dict and set the attributes of car
         db_car = Car(**car.model_dump())
         db.add(db_car)
         db.commit()

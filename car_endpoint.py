@@ -31,6 +31,7 @@ def create_car(car: CarCreate, db: Session = Depends(get_db)):
 
 @router.put("/cars/{car_id}", response_model=Car)
 def update_car(car_id: int, car: CarUpdate, db: Session = Depends(get_db)):
+    # Checking if car exist
     db_car = CarCrud.get_car_by_id(db=db,car_id=car_id)
     if db_car is None:
         raise HTTPException(404, "Car not found")
